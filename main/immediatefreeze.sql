@@ -1,0 +1,1 @@
+VACUUM FREEZE ANALYZE orders;
