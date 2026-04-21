@@ -9,17 +9,17 @@ ORDER BY pg_database_size(datname) DESC;
 
 
 -- Top Tables by Size
-SELECT
-    schemaname,
-    tablename,
-    pg_size_pretty(pg_total_relation_size(schemaname || '.' || tablename))                          AS total_size,
-    pg_size_pretty(pg_relation_size(schemaname || '.' || tablename))                                AS table_size,
-    pg_size_pretty(pg_indexes_size(schemaname || '.' || tablename))                                 AS index_size,
-    n_live_tup                                                                                      AS live_tuples,
-    n_dead_tup                                                                                      AS dead_tuples,
-    ROUND(n_dead_tup::numeric / NULLIF(n_live_tup + n_dead_tup, 0) * 100, 2)                       AS bloat_ratio
-FROM pg_stat_user_tables
-ORDER BY pg_total_relation_size(schemaname || '.' || tablename) DESC;
+ SELECT                                                                                      
+      schemaname,
+      relname,                                                                                
+      pg_size_pretty(pg_total_relation_size(schemaname || '.' || relname))  AS total_size,
+      pg_size_pretty(pg_relation_size(schemaname || '.' || relname))         AS table_size,
+      pg_size_pretty(pg_indexes_size(schemaname || '.' || relname))          AS index_size,
+      n_live_tup                                                             AS live_tuples,
+      n_dead_tup                                                             AS dead_tuples,
+      ROUND(n_dead_tup::numeric / NULLIF(n_live_tup + n_dead_tup, 0) * 100, 2) AS bloat_ratio
+  FROM pg_stat_user_tables
+  ORDER BY pg_total_relation_size(schemaname || '.' || relname) DESC;
 
 
 -- Top Indexes by Size
