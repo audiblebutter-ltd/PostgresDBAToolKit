@@ -22,6 +22,10 @@ ORDER BY idx_scan ASC, pg_relation_size(indexrelid) DESC;
 -- extra_size     Estimated bloat — space that could be reclaimed
 -- bloat_ratio    Percentage of the index that is dead space
 -- is_na          true if the estimate is not available for this index type
+
+--******** you may need to run this before the below query will work ********--
+--CREATE EXTENSION pgstattuple;
+
 SELECT
     schemaname,
     tablename,
